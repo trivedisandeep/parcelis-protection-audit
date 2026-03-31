@@ -12,8 +12,10 @@ interface StepTwoProps {
 
 const StepTwo = ({ data, onChange, errors }: StepTwoProps) => (
   <div className="space-y-5">
-    <h2 className="text-xl font-bold text-foreground">Current Protection</h2>
-    <p className="text-sm text-muted-foreground">Select your current shipping protection provider.</p>
+    <div>
+      <h2 className="text-xl font-bold text-foreground">Current Protection</h2>
+      <p className="text-sm text-muted-foreground mt-1">Select your current shipping protection provider.</p>
+    </div>
 
     <div className="grid grid-cols-2 gap-3">
       {PROVIDER_OPTIONS.map((opt) => (
@@ -22,10 +24,10 @@ const StepTwo = ({ data, onChange, errors }: StepTwoProps) => (
           type="button"
           onClick={() => onChange("currentProvider", opt.id)}
           className={cn(
-            "relative flex items-center justify-center rounded-lg border-2 p-4 text-sm font-medium transition-all hover:border-primary/50",
+            "relative flex items-center justify-center rounded-xl border p-4 text-sm font-medium transition-all duration-200",
             data.currentProvider === opt.id
-              ? "border-primary bg-primary/5 text-foreground"
-              : "border-border bg-card text-muted-foreground"
+              ? "border-primary bg-primary/10 text-foreground shadow-md shadow-primary/10"
+              : "border-border/40 bg-muted/20 text-muted-foreground hover:border-primary/30 hover:bg-muted/30"
           )}
         >
           {data.currentProvider === opt.id && (
@@ -39,13 +41,13 @@ const StepTwo = ({ data, onChange, errors }: StepTwoProps) => (
 
     {data.currentProvider === "other" && (
       <div className="pt-2">
-        <Label htmlFor="otherProvider">Please specify</Label>
+        <Label htmlFor="otherProvider" className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">Please specify</Label>
         <Input
           id="otherProvider"
           placeholder="Provider name"
           value={data.otherProvider}
           onChange={(e) => onChange("otherProvider", e.target.value)}
-          className="mt-1.5"
+          className="mt-1.5 bg-muted/30 border-border/50 focus:border-primary/50 text-foreground placeholder:text-muted-foreground/40"
         />
       </div>
     )}

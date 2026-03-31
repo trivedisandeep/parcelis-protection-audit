@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
 import emailjs from "@emailjs/browser";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ProgressBar from "@/components/ProgressBar";
 import StepOne from "@/components/StepOne";
@@ -17,7 +16,7 @@ import {
   VOLUME_OPTIONS,
   CATEGORY_OPTIONS,
 } from "@/lib/audit-types";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Shield } from "lucide-react";
 import { toast } from "sonner";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_yvtksoy";
@@ -68,7 +67,7 @@ const AuditForm = () => {
 
   const sendAudit = async () => {
     if (!EMAILJS_SERVICE_ID || !EMAILJS_PUBLIC_KEY) {
-      toast.error("EmailJS is not configured. Please set the environment variables.");
+      toast.error("EmailJS is not configured.");
       return;
     }
     setSending(true);
@@ -117,40 +116,56 @@ const AuditForm = () => {
   };
 
   return (
-    <div className="w-full max-w-[560px] mx-auto px-4 py-10">
-      <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-foreground">Shipping Protection Audit</h1>
-        <p className="text-sm text-muted-foreground mt-1">Find gaps in your current protection in under 2 minutes.</p>
+    <div className="w-full max-w-[580px] mx-auto px-4 py-12">
+      {/* Hero header */}
+      <div className="text-center mb-10">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-5">
+          <Shield className="h-4 w-4 text-primary" />
+          <span className="text-xs font-semibold text-primary">Free Audit Tool</span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-extrabold gradient-text leading-tight">
+          Shipping Protection Audit
+        </h1>
+        <p className="text-sm text-muted-foreground mt-3 max-w-md mx-auto">
+          Find gaps in your current protection in under 2 minutes.
+        </p>
       </div>
 
       <ProgressBar currentStep={step} totalSteps={4} />
 
-      <Card className="shadow-lg border-0">
-        <CardContent className="p-6 sm:p-8">
-          {step === 1 && <StepOne data={data} onChange={onChange} errors={errors} />}
-          {step === 2 && <StepTwo data={data} onChange={onChange} errors={errors} />}
-          {step === 3 && <StepThree data={data} onChange={onChange} errors={errors} />}
-          {step === 4 && <StepFour data={data} onSendAudit={sendAudit} sending={sending} sent={sent} />}
+      <div className="glass-card-solid rounded-2xl glow-primary">
+        <div className="p-6 sm:p-8">
+          <div className="animate-fade-in-up">
+            {step === 1 && <StepOne data={data} onChange={onChange} errors={errors} />}
+            {step === 2 && <StepTwo data={data} onChange={onChange} errors={errors} />}
+            {step === 3 && <StepThree data={data} onChange={onChange} errors={errors} />}
+            {step === 4 && <StepFour data={data} onSendAudit={sendAudit} sending={sending} sent={sent} />}
+          </div>
 
           {step < 4 && (
-            <div className="flex justify-between mt-8">
-              <Button variant="ghost" onClick={prev} disabled={step === 1}>
+            <div className="flex justify-between mt-8 pt-6 border-t border-border/20">
+              <Button variant="ghost" onClick={prev} disabled={step === 1} className="text-muted-foreground hover:text-foreground">
                 <ArrowLeft className="h-4 w-4 mr-1" /> Back
               </Button>
-              <Button onClick={next}>
+              <Button onClick={next} className="px-6 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
                 Next <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
           )}
           {step === 4 && !sent && (
-            <div className="mt-6">
-              <Button variant="ghost" onClick={prev}>
+            <div className="mt-6 pt-4 border-t border-border/20">
+              <Button variant="ghost" onClick={prev} className="text-muted-foreground hover:text-foreground">
                 <ArrowLeft className="h-4 w-4 mr-1" /> Back
               </Button>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
+
+      {/* Trust badge */}
+      <div className="text-center mt-6">
+        <p className="text-xs text-muted-foreground/50">Trusted by 10,000+ Shopify merchants worldwide</p>
+      </div>
     </div>
   );
 };

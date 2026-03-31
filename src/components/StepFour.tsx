@@ -19,9 +19,9 @@ interface StepFourProps {
 }
 
 const severityConfig = {
-  high: { border: "border-l-destructive", badge: "bg-destructive/10 text-destructive", label: "High" },
-  medium: { border: "border-l-warning", badge: "bg-warning/10 text-warning", label: "Medium" },
-  low: { border: "border-l-accent", badge: "bg-accent/10 text-accent", label: "Low" },
+  high: { border: "border-l-destructive", badge: "bg-destructive/15 text-destructive", label: "High" },
+  medium: { border: "border-l-warning", badge: "bg-warning/15 text-warning", label: "Medium" },
+  low: { border: "border-l-accent", badge: "bg-accent/15 text-accent", label: "Low" },
 };
 
 const StepFour = ({ data, onSendAudit, sending, sent }: StepFourProps) => {
@@ -43,7 +43,7 @@ const StepFour = ({ data, onSendAudit, sending, sent }: StepFourProps) => {
       <div className="flex flex-col items-center py-6">
         <div className="relative w-40 h-40">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="hsl(var(--muted))" strokeWidth="8" />
+            <circle cx="50" cy="50" r="45" fill="none" stroke="hsl(var(--muted) / 0.4)" strokeWidth="8" />
             <circle
               cx="50" cy="50" r="45" fill="none"
               stroke={color} strokeWidth="8" strokeLinecap="round"
@@ -70,7 +70,7 @@ const StepFour = ({ data, onSendAudit, sending, sent }: StepFourProps) => {
         {gaps.map((gap, i) => {
           const cfg = severityConfig[gap.severity];
           return (
-            <div key={i} className={cn("border-l-4 rounded-lg bg-card p-4 shadow-sm", cfg.border)}>
+            <div key={i} className={cn("border-l-4 rounded-xl bg-muted/20 p-4", cfg.border)}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="font-medium text-sm text-foreground">{gap.title}</p>
@@ -87,7 +87,7 @@ const StepFour = ({ data, onSendAudit, sending, sent }: StepFourProps) => {
 
       {/* Category Overlay */}
       {overlay && (
-        <div className="rounded-lg bg-primary/5 border border-primary/20 p-4">
+        <div className="rounded-xl bg-primary/10 border border-primary/20 p-4">
           <div className="flex items-start gap-3">
             <Info className="h-5 w-5 text-primary mt-0.5 shrink-0" />
             <div>
@@ -99,7 +99,7 @@ const StepFour = ({ data, onSendAudit, sending, sent }: StepFourProps) => {
       )}
 
       {/* CTA Box */}
-      <div className="rounded-xl bg-accent/10 border border-accent/30 p-6 text-center space-y-3">
+      <div className="rounded-2xl p-6 text-center space-y-3" style={{ background: 'linear-gradient(135deg, hsl(152, 56%, 45% / 0.12), hsl(224, 76%, 52% / 0.08))', border: '1px solid hsl(152, 56%, 45% / 0.25)' }}>
         <Shield className="h-8 w-8 text-accent mx-auto" />
         <h3 className="font-bold text-foreground">Ready to close the gaps?</h3>
         <p className="text-sm text-muted-foreground">
@@ -110,7 +110,11 @@ const StepFour = ({ data, onSendAudit, sending, sent }: StepFourProps) => {
             <CheckCircle className="h-5 w-5" /> Audit sent! Check your inbox.
           </div>
         ) : (
-          <Button variant="cta" size="lg" onClick={onSendAudit} disabled={sending} className="min-w-[220px]">
+          <Button
+            onClick={onSendAudit}
+            disabled={sending}
+            className="min-w-[220px] bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg shadow-accent/20 h-11 px-8 rounded-xl"
+          >
             {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
             {sending ? "Sending..." : "Send me the full audit"}
           </Button>
