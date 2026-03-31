@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import AuditForm from "@/components/AuditForm";
 
 const Index = () => (
-  <div className="flex flex-col min-h-screen bg-background">
+  <div className="flex flex-col min-h-screen">
     <Header />
     <main className="flex-1">
       <AuditForm />

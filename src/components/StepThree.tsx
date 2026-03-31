@@ -11,15 +11,17 @@ interface StepThreeProps {
 
 const StepThree = ({ data, onChange, errors }: StepThreeProps) => (
   <div className="space-y-5">
-    <h2 className="text-xl font-bold text-foreground">Business Details</h2>
-    <p className="text-sm text-muted-foreground">Help us understand your shipping profile.</p>
+    <div>
+      <h2 className="text-xl font-bold text-foreground">Business Details</h2>
+      <p className="text-sm text-muted-foreground mt-1">Help us understand your shipping profile.</p>
+    </div>
 
     <div className="space-y-4">
       <div>
-        <Label>Average Order Value *</Label>
+        <Label className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">Average Order Value *</Label>
         <Select value={data.aov} onValueChange={(v) => onChange("aov", v)}>
-          <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select AOV range" /></SelectTrigger>
-          <SelectContent>
+          <SelectTrigger className="mt-1.5 bg-muted/30 border-border/50 text-foreground"><SelectValue placeholder="Select AOV range" /></SelectTrigger>
+          <SelectContent className="bg-popover border-border">
             {AOV_OPTIONS.map((o) => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
           </SelectContent>
         </Select>
@@ -27,10 +29,10 @@ const StepThree = ({ data, onChange, errors }: StepThreeProps) => (
       </div>
 
       <div>
-        <Label>Monthly Shipment Volume *</Label>
+        <Label className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">Monthly Shipment Volume *</Label>
         <Select value={data.monthlyVolume} onValueChange={(v) => onChange("monthlyVolume", v)}>
-          <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select volume range" /></SelectTrigger>
-          <SelectContent>
+          <SelectTrigger className="mt-1.5 bg-muted/30 border-border/50 text-foreground"><SelectValue placeholder="Select volume range" /></SelectTrigger>
+          <SelectContent className="bg-popover border-border">
             {VOLUME_OPTIONS.map((o) => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
           </SelectContent>
         </Select>
@@ -38,10 +40,10 @@ const StepThree = ({ data, onChange, errors }: StepThreeProps) => (
       </div>
 
       <div>
-        <Label>Product Category *</Label>
+        <Label className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">Product Category *</Label>
         <Select value={data.productCategory} onValueChange={(v) => onChange("productCategory", v)}>
-          <SelectTrigger className="mt-1.5"><SelectValue placeholder="Select category" /></SelectTrigger>
-          <SelectContent>
+          <SelectTrigger className="mt-1.5 bg-muted/30 border-border/50 text-foreground"><SelectValue placeholder="Select category" /></SelectTrigger>
+          <SelectContent className="bg-popover border-border">
             {CATEGORY_OPTIONS.map((o) => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
           </SelectContent>
         </Select>
@@ -49,13 +51,13 @@ const StepThree = ({ data, onChange, errors }: StepThreeProps) => (
       </div>
 
       <div>
-        <Label htmlFor="concerns">Specific concerns (optional)</Label>
+        <Label htmlFor="concerns" className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">Specific concerns (optional)</Label>
         <Textarea
           id="concerns"
           placeholder="E.g., high claim rates, customer complaints, cost concerns..."
           value={data.concerns}
           onChange={(e) => onChange("concerns", e.target.value)}
-          className="mt-1.5"
+          className="mt-1.5 bg-muted/30 border-border/50 focus:border-primary/50 text-foreground placeholder:text-muted-foreground/40"
         />
       </div>
     </div>
