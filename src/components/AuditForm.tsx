@@ -20,10 +20,10 @@ import {
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "";
-const EMAILJS_TEMPLATE_ADMIN = import.meta.env.VITE_EMAILJS_TEMPLATE_ADMIN || "";
-const EMAILJS_TEMPLATE_MERCHANT = import.meta.env.VITE_EMAILJS_TEMPLATE_MERCHANT || "";
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "";
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_yvtksoy";
+const EMAILJS_TEMPLATE_ADMIN = import.meta.env.VITE_EMAILJS_TEMPLATE_NOTIFICATION || "template_zcfafgp";
+const EMAILJS_TEMPLATE_MERCHANT = import.meta.env.VITE_EMAILJS_TEMPLATE_CONFIRMATION || "template_ifv205u";
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "--xOHp56JyrTAt2Vj";
 
 const AuditForm = () => {
   const [step, setStep] = useState(1);
