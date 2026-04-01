@@ -95,6 +95,18 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        "coin-bounce": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-4px)" },
+        },
+        "coin-spin": {
+          "0%": { transform: "rotateY(0deg)" },
+          "100%": { transform: "rotateY(360deg)" },
+        },
+        "slide-in-right": {
+          "0%": { opacity: "0", transform: "translateX(30px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -102,6 +114,9 @@ export default {
         "score-fill": "score-fill 1.2s ease-out forwards",
         "fade-in-up": "fade-in-up 0.5s ease-out forwards",
         "shimmer": "shimmer 2s linear infinite",
+        "coin-bounce": "coin-bounce 1.2s ease-in-out infinite",
+        "coin-spin": "coin-spin 3s linear infinite",
+        "slide-in-right": "slide-in-right 0.4s ease-out forwards",
       },
     },
   },

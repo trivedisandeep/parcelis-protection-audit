@@ -135,7 +135,7 @@ const AuditForm = () => {
 
       <div className="glass-card-solid rounded-2xl glow-primary">
         <div className="p-6 sm:p-8">
-          <div className="animate-fade-in-up">
+          <div key={step} className="animate-slide-in-right">
             {step === 1 && <StepOne data={data} onChange={onChange} errors={errors} />}
             {step === 2 && <StepTwo data={data} onChange={onChange} errors={errors} />}
             {step === 3 && <StepThree data={data} onChange={onChange} errors={errors} />}
