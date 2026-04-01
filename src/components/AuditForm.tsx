@@ -116,17 +116,17 @@ const AuditForm = () => {
   };
 
   return (
-    <div className="w-full max-w-[580px] mx-auto px-4 py-12">
+    <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
       {/* Hero header */}
-      <div className="text-center mb-10">
+      <div className="text-center mb-8">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 mb-5">
           <Shield className="h-4 w-4 text-primary" />
           <span className="text-xs font-semibold text-primary">Free Audit Tool</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold gradient-text leading-tight">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold gradient-text leading-tight">
           Shipping Protection Audit
         </h1>
-        <p className="text-sm text-muted-foreground mt-3 max-w-md mx-auto">
+        <p className="text-sm sm:text-base text-muted-foreground mt-3 max-w-lg mx-auto">
           Find gaps in your current protection in under 2 minutes.
         </p>
       </div>
@@ -134,7 +134,7 @@ const AuditForm = () => {
       <ProgressBar currentStep={step} totalSteps={4} />
 
       <div className="glass-card-solid rounded-2xl glow-primary">
-        <div className="p-6 sm:p-8">
+        <div className="p-6 sm:p-10">
           <div key={step} className="animate-slide-in-right">
             {step === 1 && <StepOne data={data} onChange={onChange} errors={errors} />}
             {step === 2 && <StepTwo data={data} onChange={onChange} errors={errors} />}
@@ -147,7 +147,7 @@ const AuditForm = () => {
               <Button variant="ghost" onClick={prev} disabled={step === 1} className="text-muted-foreground hover:text-foreground">
                 <ArrowLeft className="h-4 w-4 mr-1" /> Back
               </Button>
-              <Button onClick={next} className="px-6 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
+              <Button onClick={next} className="px-8 py-2.5 bg-accent hover:bg-accent/85 text-accent-foreground font-semibold rounded-lg">
                 Next <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
