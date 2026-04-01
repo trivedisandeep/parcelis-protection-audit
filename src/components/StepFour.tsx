@@ -9,7 +9,7 @@ import {
   PROVIDER_OPTIONS,
 } from "@/lib/audit-types";
 import { Button } from "@/components/ui/button";
-import { Shield, AlertTriangle, CheckCircle, Info, Send, Loader2, DollarSign, TrendingUp } from "lucide-react";
+import { Shield, AlertTriangle, CheckCircle, Info, Send, Loader2, DollarSign, TrendingUp, PackageX, ShieldAlert, TrendingDown, Users } from "lucide-react";
 
 interface StepFourProps {
   data: AuditFormData;
@@ -24,6 +24,33 @@ const severityConfig = {
   low: { border: "border-l-accent", badge: "bg-accent/15 text-accent", label: "Low" },
 };
 
+const PORCH_PIRACY_STATS = [
+  {
+    icon: <PackageX className="h-5 w-5 text-destructive" />,
+    stat: "49 Million",
+    label: "Americans had packages stolen in 2023",
+    source: "Security.org",
+  },
+  {
+    icon: <DollarSign className="h-5 w-5 text-warning" />,
+    stat: "$12 Billion",
+    label: "Lost annually to porch piracy in the US alone",
+    source: "Capital One Shopping",
+  },
+  {
+    icon: <Users className="h-5 w-5 text-primary" />,
+    stat: "79%",
+    label: "Of consumers say protection influences purchase decisions",
+    source: "Shopify Plus Report",
+  },
+  {
+    icon: <TrendingDown className="h-5 w-5 text-destructive" />,
+    stat: "1 in 3",
+    label: "Shoppers won't reorder from a store after a lost package",
+    source: "Narvar Consumer Report",
+  },
+];
+
 function getProviderCallout(provider: string): { icon: React.ReactNode; title: string; description: string; type: "warning" | "opportunity" } {
   if (provider === "route") {
     return {
@@ -33,7 +60,6 @@ function getProviderCallout(provider: string): { icon: React.ReactNode; title: s
       type: "opportunity",
     };
   }
-  // All non-Route providers
   return {
     icon: <DollarSign className="h-5 w-5 text-destructive shrink-0 mt-0.5" />,
     title: "High chances of paying from your own margin",
@@ -54,6 +80,7 @@ const StepFour = ({ data, onSendAudit, sending, sent }: StepFourProps) => {
   const overlay = getCategoryOverlay(data.productCategory);
   const providerLabel = PROVIDER_OPTIONS.find((p) => p.id === data.currentProvider)?.label ?? data.currentProvider;
   const callout = getProviderCallout(data.currentProvider);
+  const isNoProtection = data.currentProvider === "none";
 
   const circumference = 283;
   const offset = circumference - (score / 100) * circumference;
@@ -84,6 +111,39 @@ const StepFour = ({ data, onSendAudit, sending, sent }: StepFourProps) => {
         <span className="mt-3 text-sm font-semibold" style={{ color }}>{label}</span>
         <p className="text-xs text-muted-foreground mt-1">Based on {providerLabel} + your business profile</p>
       </div>
+
+      {/* Porch Piracy & Risk Data — only for no protection */}
+      {isNoProtection && (
+        <div className="space-y-4">
+          <div className="rounded-xl bg-destructive/8 border border-destructive/20 p-4">
+            <div className="flex items-start gap-3">
+              <ShieldAlert className="h-6 w-6 text-destructive shrink-0 mt-0.5" />
+              <div>
+                <p className="font-bold text-sm text-foreground">You're operating without a safety net</p>
+                <p className="text-xs text-muted-foreground mt-1.5 leading-relaxed">
+                  Porch piracy and package theft are at an all-time high. Without shipping protection, your store absorbs every loss — damaging your margins, customer trust, and brand reputation.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+            <AlertTriangle className="h-4 w-4 text-warning" /> The Real Cost of No Protection
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {PORCH_PIRACY_STATS.map((item, i) => (
+              <div key={i} className="rounded-xl bg-muted/20 border border-border/30 p-4 space-y-2">
+                <div className="flex items-center gap-2">
+                  {item.icon}
+                  <span className="text-lg font-bold text-foreground">{item.stat}</span>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">{item.label}</p>
+                <p className="text-[10px] text-muted-foreground/50">Source: {item.source}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Provider-specific callout */}
       <div className={cn(
@@ -140,9 +200,14 @@ const StepFour = ({ data, onSendAudit, sending, sent }: StepFourProps) => {
       {/* CTA Box */}
       <div className="rounded-2xl p-6 text-center space-y-3" style={{ background: 'linear-gradient(135deg, hsl(152, 56%, 45% / 0.12), hsl(224, 76%, 52% / 0.08))', border: '1px solid hsl(152, 56%, 45% / 0.25)' }}>
         <Shield className="h-8 w-8 text-accent mx-auto" />
-        <h3 className="font-bold text-foreground">Ready to close the gaps?</h3>
+        <h3 className="font-bold text-foreground">
+          {isNoProtection ? "Start protecting your revenue today" : "Ready to close the gaps?"}
+        </h3>
         <p className="text-sm text-muted-foreground">
-          Get a personalized full audit report with actionable recommendations for {data.storeName}.
+          {isNoProtection
+            ? `Don't let porch piracy eat into ${data.storeName}'s margins. Get a personalized protection plan with revenue projections.`
+            : `Get a personalized full audit report with actionable recommendations for ${data.storeName}.`
+          }
         </p>
         {sent ? (
           <div className="flex items-center justify-center gap-2 text-accent font-semibold text-sm py-2">
